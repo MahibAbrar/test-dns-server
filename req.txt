@@ -1,2 +1,4 @@
 dnserver
 flask
+markupsafe
+jinja2
