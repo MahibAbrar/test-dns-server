@@ -1,12 +1,12 @@
 from dnslib import DNSRecord
 import socket
 import socketserver
-from flask import Flask, request, render_template_string
+from flask import Flask, request, render_template_string, jsonify
 
 app = Flask(__name__)
 @app.route('/')
 def index():
-    return render_template_string("<h1>Running</h1>")
+    return jsonify(status=200)
 
 class DNSHandler(socketserver.BaseRequestHandler):
     def handle(self):
