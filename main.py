@@ -27,7 +27,7 @@ class DNSHandler(socketserver.BaseRequestHandler):
 def start_socketserver():
     print("Attempt to run ...")
     socketserver.ThreadingUDPServer.allow_reuse_port = True
-    server = socketserver.ThreadingUDPServer(("0.0.0.0", 5300), DNSHandler)
+    server = socketserver.ThreadingUDPServer(("0.0.0.0", 53), DNSHandler)
     print("Running at 53")
     server.serve_forever()
     print("Complete")
