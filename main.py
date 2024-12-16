@@ -20,11 +20,10 @@ class DNSHandler(socketserver.BaseRequestHandler):
 
             socket.sendto(reply.pack(), self.client_address)
         except Exception as e:
-            print(f"Exception is: {e}")
-if __name__ == "__main__":
-    socketserver.ThreadingUDPServer.allow_reuse_port = True
-    server = socketserver.ThreadingUDPServer(("0.0.0.0", 53), DNSHandler)
-    print("Running at 53")
-    server.serve_forever()
-
-    app.run(host="0.0.0.0", port=80)
+            print(f"Exception: {e}")
+print("Attempt to run ...")
+socketserver.ThreadingUDPServer.allow_reuse_port = True
+server = socketserver.ThreadingUDPServer(("0.0.0.0", 53), DNSHandler)
+print("Running at 53")
+server.serve_forever()
+app.run(host="0.0.0.0", port=80)
