@@ -2,6 +2,7 @@ from dnslib import DNSRecord
 import socket
 import socketserver
 from flask import Flask, request, render_template_string, jsonify
+import threading
 
 print("INIT THIS APP ")
 
@@ -23,9 +24,19 @@ class DNSHandler(socketserver.BaseRequestHandler):
             socket.sendto(reply.pack(), self.client_address)
         except Exception as e:
             print(f"Exception: {e}")
-print("Attempt to run ...")
-socketserver.ThreadingUDPServer.allow_reuse_port = True
-server = socketserver.ThreadingUDPServer(("0.0.0.0", 5300), DNSHandler)
-print("Running at 53")
-server.serve_forever()
-app.run(host="0.0.0.0", port=80)
+def start_socketserver():
+    print("Attempt to run ...")
+    socketserver.ThreadingUDPServer.allow_reuse_port = True
+    server = socketserver.ThreadingUDPServer(("0.0.0.0", 5300), DNSHandler)
+    print("Running at 53")
+    server.serve_forever()
+    print("Complete")
+def start_flask():
+    app.run(host="0.0.0.0", port=80)
+
+t1 = threading.Thread(target=start_socketserver)
+t2 = threading.Thread(target=start_flask)
+
+
+t1.start()
+t2.start()
