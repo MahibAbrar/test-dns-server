@@ -3,6 +3,8 @@ import socket
 import socketserver
 from flask import Flask, request, render_template_string, jsonify
 
+print("INIT THIS APP ")
+
 app = Flask(__name__)
 @app.route('/')
 def index():
